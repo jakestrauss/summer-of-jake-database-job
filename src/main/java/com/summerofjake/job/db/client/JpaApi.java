@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class JpaApi {
-    private static final String BASE_JPA_URL = "https://summerofjakebackend.link:443/api/";
+    private static final String BASE_JPA_URL = "https://www.summerofjakebackend.link:443/api/";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private OkHttpClient client;
     private Gson gson;
