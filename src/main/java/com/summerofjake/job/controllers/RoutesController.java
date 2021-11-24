@@ -1,7 +1,7 @@
 package com.summerofjake.job.controllers;
 
+import com.summerofjake.job.model.Route;
 import com.summerofjake.job.strava.api.ActivityApi;
-import com.summerofjake.server.model.Route;
 
 import java.util.List;
 

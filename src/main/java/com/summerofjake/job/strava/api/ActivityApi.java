@@ -1,7 +1,7 @@
 package com.summerofjake.job.strava.api;
 
 import com.google.common.collect.ImmutableList;
-import com.summerofjake.server.model.Marker;
+import com.summerofjake.job.model.Marker;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
 import okhttp3.Request;

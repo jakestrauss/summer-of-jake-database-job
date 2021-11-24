@@ -6,7 +6,6 @@ import com.summerofjake.job.strava.api.exception.StravaUnauthorizedException;
 import okhttp3.*;
 import org.apache.tomcat.util.json.JSONParser;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -25,7 +24,7 @@ public abstract class StravaApi {
 
     public StravaApi() {
         //load in API keys from properties file
-        try (InputStream input = new FileInputStream("src/main/resources/config.properties")) {
+        try (InputStream input = this.getClass().getClassLoader().getResourceAsStream("config.properties")) {
 
             Properties prop = new Properties();
             prop.load(input);

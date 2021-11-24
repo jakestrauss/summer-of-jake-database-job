@@ -1,6 +1,6 @@
 package com.summerofjake.job.activities;
 
-import com.summerofjake.server.model.Marker;
+import com.summerofjake.job.model.Marker;
 
 import java.util.List;
 

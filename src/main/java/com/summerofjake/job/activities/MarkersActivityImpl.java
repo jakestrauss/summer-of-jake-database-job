@@ -1,8 +1,8 @@
 package com.summerofjake.job.activities;
 
 import com.summerofjake.job.controllers.MarkersController;
+import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.strava.api.ActivityApi;
-import com.summerofjake.server.model.Marker;
 
 import java.util.List;
 

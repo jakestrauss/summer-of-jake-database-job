@@ -1,7 +1,7 @@
 package com.summerofjake.job.db.client;
 
 import com.google.gson.*;
-import com.summerofjake.server.model.Marker;
+import com.summerofjake.job.model.Marker;
 import okhttp3.*;
 import org.apache.tomcat.util.json.JSONParser;
 

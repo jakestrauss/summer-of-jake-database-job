@@ -1,8 +1,8 @@
 package com.summerofjake.job.controllers;
 
 import com.summerofjake.job.db.client.JpaApi;
+import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.strava.api.ActivityApi;
-import com.summerofjake.server.model.Marker;
 
 import java.io.IOException;
 import java.util.ArrayList;
