@@ -61,7 +61,7 @@ public class JpaApi {
     }
 
     public boolean postRoutes(List<Route> routes) throws IOException {
-        String routesUrl = BASE_JPA_URL + "postRoutes";
+        String routesUrl = DEV_JPA_URL + "postRoutes";
 
         String routesJsonString = gson.toJson(routes);
         RequestBody body = RequestBody.create(JSON, routesJsonString);

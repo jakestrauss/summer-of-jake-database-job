@@ -42,6 +42,8 @@ public class MarkersController {
 
         if(allPhotoMarkers.isEmpty()) {
             System.out.println("No new markers to post!");
+
+            //Still return all markers (with and without photos) to retrieve routes
             return(allMarkers);
         }
 

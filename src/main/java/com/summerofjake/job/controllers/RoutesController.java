@@ -14,12 +14,10 @@ import java.util.stream.Collectors;
 
 public class RoutesController {
 
-    private final ActivityApi activityApi;
     private final JpaApi jpaApi;
     private final KmlFactory kmlFactory;
 
     public RoutesController(ActivityApi activityApi, JpaApi jpaApi) {
-        this.activityApi = activityApi;
         this.jpaApi = jpaApi;
         kmlFactory = new KmlFactoryImpl(activityApi);
     }
@@ -52,7 +50,7 @@ public class RoutesController {
 
         boolean posted = false;
         try {
-            jpaApi.postRoutes(routes);
+            posted = jpaApi.postRoutes(routes);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
