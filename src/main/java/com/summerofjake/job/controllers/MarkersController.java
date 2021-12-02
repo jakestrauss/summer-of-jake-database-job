@@ -8,14 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MarkersController {
-    private ActivityApi activityApi;
-    private JpaApi jpaApi;
+    private final ActivityApi activityApi;
+    private final JpaApi jpaApi;
 
-    public MarkersController(ActivityApi activityApi) {
+    public MarkersController(ActivityApi activityApi, JpaApi jpaApi) {
         this.activityApi = activityApi;
-        this.jpaApi = new JpaApi();
+        this.jpaApi = jpaApi;
     }
 
     public List<Marker> getMarkers(List<Long> activityIds) {
@@ -36,10 +37,18 @@ public class MarkersController {
                     + " " + m.getLng() + " " + m.getActivityTitle() + " |||| " + m.getActivityDescription());
         }
 
+        //filter out markers without photoUrls
+        List<Marker> allPhotoMarkers = allMarkers.stream().filter(marker -> !(marker.getUrl().isEmpty())).collect(Collectors.toList());
+
+        if(allPhotoMarkers.isEmpty()) {
+            System.out.println("No new markers to post!");
+            return(allMarkers);
+        }
+
         //Write values to database
         boolean posted = false;
         try {
-            posted = jpaApi.postMarkers(allMarkers);
+            posted = jpaApi.postMarkers(allPhotoMarkers);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

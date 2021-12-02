@@ -2,6 +2,7 @@ package com.summerofjake.job.db.client;
 
 import com.google.gson.*;
 import com.summerofjake.job.model.Marker;
+import com.summerofjake.job.model.Route;
 import okhttp3.*;
 import org.apache.tomcat.util.json.JSONParser;
 
@@ -14,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class JpaApi {
     private static final String BASE_JPA_URL = "https://www.summerofjakebackend.link:443/api/";
+    private static final String DEV_JPA_URL = "http://localhost:8080/api/";
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private OkHttpClient client;
     private Gson gson;
@@ -53,6 +55,31 @@ public class JpaApi {
             return (boolean)parser.parse();
         } catch (Exception e) {
             System.out.println("Parse Exception of postMarkers response: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    public boolean postRoutes(List<Route> routes) throws IOException {
+        String routesUrl = BASE_JPA_URL + "postRoutes";
+
+        String routesJsonString = gson.toJson(routes);
+        RequestBody body = RequestBody.create(JSON, routesJsonString);
+
+        Request request = new Request.Builder()
+                .url(routesUrl)
+                .header("Content-type", String.valueOf(JSON))
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        ResponseBody responseBody = execute(call);
+
+        try {
+            JSONParser parser = new JSONParser(responseBody.string());
+            return (boolean)parser.parse();
+        } catch (Exception e) {
+            System.out.println("Parse Exception of postRoutes response: " + e.getMessage());
         }
 
         return false;
