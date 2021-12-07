@@ -2,7 +2,9 @@ package com.summerofjake.job.factories;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.summerofjake.job.gcloud.api.GcloudApi;
+import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.strava.api.ActivityApi;
 import org.apache.logging.log4j.util.Strings;
 import org.geojson.*;
@@ -22,7 +24,8 @@ public class GeoJsonFactoryImpl implements  GeoJsonFactory {
     }
 
     @Override
-    public String constructGeoJson(String activityId, String activityDate) {
+    public String constructGeoJson(Marker marker) {
+        final String activityId = marker.getActivityId();;
         List<LngLatAlt> coordinateList = activityApi.getActivityRouteStream(activityId);
 
         String json = Strings.EMPTY;
@@ -35,8 +38,9 @@ public class GeoJsonFactoryImpl implements  GeoJsonFactory {
 
         Map<String, Object> properties = new HashMap<>();
 
-        Map<String, String> styleProps = new HashMap<>();
-        properties.put("date", activityDate);
+        properties.put("date", marker.getActivityDate().toString());
+        properties.put("activity_title", marker.getActivityTitle());
+        properties.put("activity_description", marker.getActivityDescription());
 
         lineStreamFeature.setProperties(properties);
         featureCollection.add(lineStreamFeature);

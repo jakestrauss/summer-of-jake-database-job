@@ -28,13 +28,11 @@ public class RoutesController {
                 .collect(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(Marker::getActivityId))));
 
         for(Marker m : uniqueActivityMarkers) {
-            String activityId = m.getActivityId();
-            String activityDateString = m.getActivityDate().toString();
-            String url = geoJsonFactory.constructGeoJson(activityId, activityDateString);
+            String url = geoJsonFactory.constructGeoJson(m);
 
             //construct finished route
             Route r = RouteBuilder.aRoute()
-                    .withActivityId(activityId)
+                    .withActivityId(m.getActivityId())
                     .withActivityDescription(m.getActivityDescription())
                     .withActivityTitle(m.getActivityTitle())
                     .withActivityDate(m.getActivityDate())

@@ -37,7 +37,7 @@ public class ActivityApi extends StravaApi {
         long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(4).getSeconds();
 //        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
         urlBuilder.addQueryParameter("per_page", "45");
-        urlBuilder.addQueryParameter("page", "3");
+        urlBuilder.addQueryParameter("page", "1");
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
