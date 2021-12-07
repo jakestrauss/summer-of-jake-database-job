@@ -1,8 +1,8 @@
 package com.summerofjake.job.controllers;
 
-import com.summerofjake.job.db.client.JpaApi;
-import com.summerofjake.job.factories.KmlFactory;
-import com.summerofjake.job.factories.KmlFactoryImpl;
+import com.summerofjake.job.db.api.JpaApi;
+import com.summerofjake.job.factories.GeoJsonFactory;
+import com.summerofjake.job.factories.GeoJsonFactoryImpl;
 import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.model.Route;
 import com.summerofjake.job.model.RouteBuilder;
@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 public class RoutesController {
 
     private final JpaApi jpaApi;
-    private final KmlFactory kmlFactory;
+    private final GeoJsonFactory geoJsonFactory;
 
     public RoutesController(ActivityApi activityApi, JpaApi jpaApi) {
         this.jpaApi = jpaApi;
-        kmlFactory = new KmlFactoryImpl(activityApi);
+        geoJsonFactory = new GeoJsonFactoryImpl(activityApi);
     }
 
     public List<Route> getRoutes(List<Marker> markers) {
@@ -29,7 +29,8 @@ public class RoutesController {
 
         for(Marker m : uniqueActivityMarkers) {
             String activityId = m.getActivityId();
-            String url = kmlFactory.constructKmlUrl(activityId);
+            String activityDateString = m.getActivityDate().toString();
+            String url = geoJsonFactory.constructGeoJson(activityId, activityDateString);
 
             //construct finished route
             Route r = RouteBuilder.aRoute()

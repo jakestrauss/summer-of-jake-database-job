@@ -1,4 +1,4 @@
-package com.summerofjake.job.db.client;
+package com.summerofjake.job.db.api;
 
 import com.google.gson.*;
 import com.summerofjake.job.model.Marker;
@@ -36,7 +36,7 @@ public class JpaApi {
     }
 
     public boolean postMarkers(List<Marker> markerList) throws IOException {
-        String markersUrl = BASE_JPA_URL + "postMarkers";
+        String markersUrl = DEV_JPA_URL + "postMarkers";
 
         String markersJsonString = gson.toJson(markerList);
         RequestBody body = RequestBody.create(JSON, markersJsonString);

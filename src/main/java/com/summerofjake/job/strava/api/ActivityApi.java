@@ -1,7 +1,6 @@
 package com.summerofjake.job.strava.api;
 
 import com.google.common.collect.ImmutableList;
-import com.summerofjake.job.model.LatLong;
 import com.summerofjake.job.model.Marker;
 import okhttp3.Call;
 import okhttp3.HttpUrl;
@@ -9,6 +8,7 @@ import okhttp3.Request;
 import okhttp3.ResponseBody;
 import org.apache.logging.log4j.util.Strings;
 import org.apache.tomcat.util.json.JSONParser;
+import org.geojson.LngLatAlt;
 
 
 import java.math.BigDecimal;
@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ActivityApi extends StravaApi {
 
@@ -35,8 +34,8 @@ public class ActivityApi extends StravaApi {
                 = HttpUrl.parse(STRAVA_BASE_URL + "athlete/activities").newBuilder();
         urlBuilder.addQueryParameter("access_token", accessToken);
         //Get only activities from the last day
-        long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(1).getSeconds();
-        //urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
+        long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(4).getSeconds();
+//        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
         urlBuilder.addQueryParameter("per_page", "45");
         urlBuilder.addQueryParameter("page", "3");
         String url = urlBuilder.build().toString();
@@ -107,7 +106,7 @@ public class ActivityApi extends StravaApi {
                         activityDate, activityTitle, activityDescription, activityId));
     }
 
-    public List<LatLong> getActivityRouteStream(String activityId) {
+    public List<LngLatAlt> getActivityRouteStream(String activityId) {
 
         HttpUrl.Builder urlBuilder
                 = HttpUrl.parse(STRAVA_BASE_URL + "activities/" + activityId + "/streams").newBuilder();
@@ -121,7 +120,7 @@ public class ActivityApi extends StravaApi {
         Call call = client.newCall(request);
         ResponseBody responseBody = execute(call);
 
-        List<LatLong> coordinateList = new ArrayList<>();
+        List<LngLatAlt> coordinateList = new ArrayList<>();
 
         try {
             JSONParser parser = new JSONParser(responseBody.string());
@@ -131,8 +130,8 @@ public class ActivityApi extends StravaApi {
 
             //populate coorindate list with latLng data
             latLngDataList.forEach(latLng -> {
-                coordinateList.add(new LatLong(((BigDecimal)(latLng.get(0))).doubleValue(),
-                       (((BigDecimal)(latLng.get(1))).doubleValue())));
+                coordinateList.add(new LngLatAlt(((BigDecimal)(latLng.get(1))).doubleValue(),
+                       (((BigDecimal)(latLng.get(0))).doubleValue())));
             });
 
 

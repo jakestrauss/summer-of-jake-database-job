@@ -1,7 +1,7 @@
 package com.summerofjake.job.activities;
 
 import com.summerofjake.job.controllers.RoutesController;
-import com.summerofjake.job.db.client.JpaApi;
+import com.summerofjake.job.db.api.JpaApi;
 import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.model.Route;
 import com.summerofjake.job.strava.api.ActivityApi;

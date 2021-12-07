@@ -10,14 +10,14 @@ import java.nio.file.Paths;
 
 public class GcloudApi {
     private static final String PROJECT_ID = "summer-of-jake-adventure-map";
-    private static final String BUCKET_NAME = "uploaded-kmls";
+    private static final String BUCKET_NAME = "uploaded-geojsons";
     private static final String GCLOUD_CREDENTIALS_PATH =
             System.getProperty("GCLOUD_CREDENTIALS_PATH") != null ? System.getProperty("GCLOUD_CREDENTIALS_PATH") :
                     "/Users/straussj/Documents/react_projects/summerofjakemisc/summer-of-jake-adventure-map-966979f68045.json";
-    public static final String BASE_FILE_PATH = "src/main/resources/strava_kmls/";
+    public static final String BASE_FILE_PATH = "src/main/resources/strava_geojsons/";
 
-    public static void uploadKml(String kmlFileName) throws IOException {
-        uploadObject(PROJECT_ID, BUCKET_NAME, kmlFileName, BASE_FILE_PATH + kmlFileName);
+    public static void uploadJson(String jsonFileName) throws IOException {
+        uploadObject(PROJECT_ID, BUCKET_NAME, jsonFileName, BASE_FILE_PATH + jsonFileName);
     }
 
     //From https://cloud.google.com/storage/docs/samples/storage-upload-file

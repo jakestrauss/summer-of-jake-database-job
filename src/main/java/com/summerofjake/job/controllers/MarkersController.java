@@ -1,6 +1,6 @@
 package com.summerofjake.job.controllers;
 
-import com.summerofjake.job.db.client.JpaApi;
+import com.summerofjake.job.db.api.JpaApi;
 import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.strava.api.ActivityApi;
 

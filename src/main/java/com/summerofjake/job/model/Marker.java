@@ -1,35 +1,23 @@
 package com.summerofjake.job.model;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "markers")
 public class Marker {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "url", unique = true)
     private String url;
 
-    @Column(name = "lat")
     private double lat;
 
-    @Column(name = "lng")
     private double lng;
 
-    @Column(name="activityDate", columnDefinition = "TIMESTAMP")
     private LocalDateTime activityDate;
 
-    @Column(name="activityTitle")
     private String activityTitle;
 
-    @Column(name="activityDescription")
     private String activityDescription;
 
-    @Column(name="activityId")
     private String activityId;
 
     public Marker() {}

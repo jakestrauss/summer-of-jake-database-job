@@ -1,29 +1,19 @@
 package com.summerofjake.job.model;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "routes")
 public class Route {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
-    @Column (name = "url", unique = true)
     private String url;
 
-    @Column(name="activityDate", columnDefinition = "TIMESTAMP")
     private LocalDateTime activityDate;
 
-    @Column(name="activityTitle")
     private String activityTitle;
 
-    @Column(name="activityDescription")
     private String activityDescription;
 
-    @Column(name="activityId", unique = true)
     private String activityId;
 
     public Route() {}
