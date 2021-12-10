@@ -2,13 +2,13 @@ package com.summerofjake.job.factories;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.summerofjake.job.gcloud.api.GcloudApi;
 import com.summerofjake.job.model.Marker;
 import com.summerofjake.job.strava.api.ActivityApi;
 import org.apache.logging.log4j.util.Strings;
 import org.geojson.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,21 +53,16 @@ public class GeoJsonFactoryImpl implements  GeoJsonFactory {
 
         String fileName = writeJsonToBucket(activityId, json);
 
-        try {
-            GcloudApi.uploadJson(fileName);
-        } catch (IOException e) {
-            System.out.println("GeoJson file upload failed! " + e.getLocalizedMessage());
-            return Strings.EMPTY;
-        }
-
-        return BASE_JSON_URL + activityId + "_route.json";
+        return BASE_JSON_URL + fileName;
     }
 
     private String writeJsonToBucket(String activityId, String json) {
+
+        //Create json file
         FileWriter jsonFile;
-        String fileName = GcloudApi.BASE_FILE_PATH + activityId + "_route.json";
+        final String localFileName = GcloudApi.BASE_FILE_PATH + activityId + "_route.json";
         try {
-            jsonFile = new FileWriter(fileName);
+            jsonFile = new FileWriter(localFileName);
             jsonFile.write(json);
             jsonFile.flush();
             jsonFile.close();
@@ -75,6 +70,21 @@ public class GeoJsonFactoryImpl implements  GeoJsonFactory {
             e.printStackTrace();
         }
 
-        return activityId + "_route.json";
+        //Upload json to google cloud bucket
+        final String cloudFileName = activityId + "_route.json";
+        try {
+            GcloudApi.uploadJson(cloudFileName);
+        } catch (IOException e) {
+            System.out.println("GeoJson file upload failed! " + e.getLocalizedMessage());
+            return Strings.EMPTY;
+        } finally {
+            //delete json file locally
+            final File localFile = new File(localFileName);
+            localFile.delete();
+        }
+
+
+
+        return cloudFileName;
     }
 }

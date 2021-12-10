@@ -34,10 +34,8 @@ public class ActivityApi extends StravaApi {
                 = HttpUrl.parse(STRAVA_BASE_URL + "athlete/activities").newBuilder();
         urlBuilder.addQueryParameter("access_token", accessToken);
         //Get only activities from the last day
-        long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(4).getSeconds();
-//        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
-        urlBuilder.addQueryParameter("per_page", "45");
-        urlBuilder.addQueryParameter("page", "1");
+        long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(1).getSeconds();
+        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
@@ -93,6 +91,10 @@ public class ActivityApi extends StravaApi {
             activityTitle = (String)requestMap.get("name");
             activityDescription = requestMap.get("description") != null
                     ? (String)requestMap.get("description") : Strings.EMPTY;
+
+            if(((ArrayList)requestMap.get("start_latlng")).isEmpty()) {
+                return new ArrayList<>();
+            }
 
             //Currently no geo-location data of photo accessible from Strava API, so must use start lat/lng
             latLng = (ArrayList)requestMap.get("start_latlng");

@@ -36,7 +36,7 @@ public class JpaApi {
     }
 
     public boolean postMarkers(List<Marker> markerList) throws IOException {
-        String markersUrl = DEV_JPA_URL + "postMarkers";
+        String markersUrl = BASE_JPA_URL + "postMarkers";
 
         String markersJsonString = gson.toJson(markerList);
         RequestBody body = RequestBody.create(JSON, markersJsonString);
@@ -61,7 +61,7 @@ public class JpaApi {
     }
 
     public boolean postRoutes(List<Route> routes) throws IOException {
-        String routesUrl = DEV_JPA_URL + "postRoutes";
+        String routesUrl = BASE_JPA_URL + "postRoutes";
 
         String routesJsonString = gson.toJson(routes);
         RequestBody body = RequestBody.create(JSON, routesJsonString);
