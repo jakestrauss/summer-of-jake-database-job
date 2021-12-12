@@ -41,6 +41,7 @@ public class GeoJsonFactoryImpl implements  GeoJsonFactory {
         properties.put("date", marker.getActivityDate().toString());
         properties.put("activity_title", marker.getActivityTitle());
         properties.put("activity_description", marker.getActivityDescription());
+        properties.put("activity_id", marker.getActivityId());
 
         lineStreamFeature.setProperties(properties);
         featureCollection.add(lineStreamFeature);

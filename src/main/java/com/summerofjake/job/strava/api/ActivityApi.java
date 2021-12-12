@@ -35,7 +35,9 @@ public class ActivityApi extends StravaApi {
         urlBuilder.addQueryParameter("access_token", accessToken);
         //Get only activities from the last day
         long yesterdaysEpoch = (Instant.now().toEpochMilli()/1000) - Duration.ofDays(1).getSeconds();
-        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
+//        urlBuilder.addQueryParameter("after", String.valueOf(yesterdaysEpoch));
+        urlBuilder.addQueryParameter("page", "3");
+        urlBuilder.addQueryParameter("per_page", "44");
         String url = urlBuilder.build().toString();
 
         Request request = new Request.Builder().url(url).build();
