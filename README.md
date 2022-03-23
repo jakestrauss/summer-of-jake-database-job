@@ -1,4 +1,5 @@
 # Summer of Jake adventure map back-end database fill job
+# Project currently offline due to high infra costs, will come back later to refactor infrastructure when I have more time :)
 
 This repo hosts the back-end job used to populate the database for summerofjake.com. It runs nightly and call's Strava's APIs to retrieve data from newly uploaded activities, 
 and does some data transformations. Then it uploads the data to a google cloud bucket and adds the references to this data on the MySQL database by calling the back-end server.
